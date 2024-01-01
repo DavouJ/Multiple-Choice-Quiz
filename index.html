@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Anton|Jura&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/index.css">
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+
+<title>Coding Quiz</title>
+
+<link rel="stylesheet" href="./assets/css/styles.css" />
+</head>
+
+<body>
+<nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+        <a href="highscores.html">View Highscores</a>
+        <div class="timer">Time: <span id="time">0</span></div>
+    </div>
+    </nav>
+<!-- <div class="scores"><a href="highscores.html">View Highscores</a></div>
+
+<div class="timer">Time: <span id="time">0</span></div> -->
+
+<div class="p-5 m-4 bg-body-tertiary rounded-3">
+    <div id="start-screen" class="container-fluid py-5 start">
+    <h1 class="display-5 fw-bold">Coding Quiz Challenge</h1>
+    <p class=" fs-4">Try to answer the following code-related questions within the time
+        limit. Keep in mind that incorrect answers will penalize your
+        score/time by ten seconds!</p>
+    <button id="start" class="btn btn-primary btn-lg" type="button">Start Quiz</button>
+    </div>
+
+    <div id="questions" class="container-fluid py-5 hide">
+        <h2 id="question-title" class="display-5 fw-bold"></h2>
+        <div id="choices" class="choices"></div>
+        <button id="check" class="btn btn-primary btn-lg" type="button">Check</button>
+        <button id="check" class="btn btn-primary btn-lg hide" type="button">See results</button>
+    </div>
+
+    <div id="end-screen" class="container-fluid py-5 hide">
+        <h2 id="question-title" class="display-5 fw-bold">All done!</h2>
+        <p>Your final score is <span id="final-score"></span>.</p>
+        <p>
+        Enter initials: <input type="text" id="initials" max="3" />
+        <button class="btn btn-primary btn-lg" type="button" id="submit">Submit</button>
+        </p>
+        
+    </div>
+
+</div>
+
+<!-- <div class="wrapper">
+    <div id="start-screen" class="start">
+    <h1>Coding Quiz Challenge</h1>
+    <p>
+        Try to answer the following code-related questions within the time
+        limit. Keep in mind that incorrect answers will penalize your
+        score/time by ten seconds!
+    </p>
+    <button id="start">Start Quiz</button>
+    </div>
+
+    <div id="questions" class="hide">
+    <h2 id="question-title"></h2>
+    <div id="choices" class="choices"></div>
+    </div>
+
+    <div id="end-screen" class="hide">
+    <h2>All done!</h2>
+    <p>Your final score is <span id="final-score"></span>.</p>
+    <p>
+        Enter initials: <input type="text" id="initials" max="3" />
+        <button id="submit">Submit</button>
+    </p>
+    </div>
+
+    <div id="feedback" class="feedback hide"></div>
+</div> -->
+
+<script src="./assets/js/questions.js"></script>
+<script src="./assets/js/logic.js"></script>
+
+<!-- Popper.js, then Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+</body>
+</html>
