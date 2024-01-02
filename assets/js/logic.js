@@ -20,6 +20,20 @@ let correctBtn
 function getRandomInt(max) {
     return Math.floor(Math.random() * max)
 }
+function shuffle(array) {
+    let currentIndex = array.length,  randomIndex;
+    // While there remain elements to shuffle.
+    while (currentIndex > 0) {
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+}
 
 startBtn.addEventListener("click", function() {
     
@@ -31,10 +45,15 @@ startBtn.addEventListener("click", function() {
 });
 
 function mapQA(){
-    var order = []
-    questionTitle.textContent = `Question ${round + 1}: ` + getQuestion(round)  
-    options[getRandomInt(3)].setAttribute("value", questions[getRandomInt(round)].correctAnswer)
-    
+    var order = [0,1,2,3]
+    shuffle(order)
+
+    questionTitle.textContent = `Question ${round + 1}: ` + questions[round].question
+    console.log(order)
+    options[order[0]].setAttribute("value", questions[round].correctAnswer)
+    options[order[1]].setAttribute("value", questions[round].incorrectAnswer[0])
+    options[order[2]].setAttribute("value", questions[round].incorrectAnswer[1])
+    options[order[3]].setAttribute("value", questions[round].incorrectAnswer[2])
 }
 
 function checkAns()
@@ -51,8 +70,8 @@ checkBtn.addEventListener("click", function() {
 nextBtn.addEventListener("click", function() {
     if(round < questions.length){  
         mapQA() 
-        checkBtn.setAttribute("class", "btn btn-primary btn-lg hide")
-        resultBtn.setAttribute("class", "btn col-3 btn-primary btn-lg start")  
+        checkBtn.setAttribute("class", "btn btn-primary btn-lg start")
+        nextBtn.setAttribute("class", "btn col-3 btn-primary btn-lg hide")  
         round++
         console.log(round)
     }
