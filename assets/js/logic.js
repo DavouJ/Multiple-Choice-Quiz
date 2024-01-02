@@ -8,6 +8,14 @@ const checkBtn = document.querySelector("#check")
 const resultBtn = document.querySelector("#results")
 const nextBtn = document.querySelector("#next")
 const endBox = document.querySelector("#end-screen")
+const submit = document.querySelector("#submit")
+const highscores = document.querySelector("#highscores");
+
+
+let scores ;
+
+const playerInput = document.querySelector("#initials")
+
 
 let options = [
 option1 = document.querySelector("#option1"),
@@ -18,16 +26,16 @@ option4 = document.querySelector("#option4")
 
 let round = 0
 let order = [0,1,2,3]
+
 let correctBtn
 let score = 0
-let selected = false
-let checked = false
-let timeLeft = 60;
+let complete = false
+let timeLeft = 5;
 
 function countdown() {
     
     // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
-    const timeInterval = setInterval(function () {
+    let timeInterval = setInterval(function () {
     
     if (timeLeft > 1) {
         
@@ -38,12 +46,17 @@ function countdown() {
         
         timer.textContent = timeLeft + ' second remaining';
         timeLeft--;
-    } else {
-        
-        timer.textContent = '';
+    } 
+    else if(timeLeft === 0){
         
         clearInterval(timeInterval);
-        
+
+        endBox.children[0].textContent = "Times Up!"
+        finalScore.textContent = `Your final score is ${score}`
+        endBox.setAttribute("class", "container-fluid py-5 start")
+        questionsBox.setAttribute("class", "container-fluid py-5 hide")
+    }
+    else{
         endBox.setAttribute("class", "container-fluid py-5 start")
         questionsBox.setAttribute("class", "container-fluid py-5 hide")
     }
@@ -52,12 +65,10 @@ function countdown() {
 
 function shuffle(array) {
     let currentIndex = array.length,  randomIndex;
-    // While there remain elements to shuffle.
+
     while (currentIndex > 0) {
-    // Pick a remaining element.
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
-    // And swap it with the current element.
     [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];
     }
@@ -75,7 +86,7 @@ function mapQA(){
     shuffle(order)
 
     questionTitle.textContent = `Question ${round + 1}: ` + questions[round].question
-    console.log(order)
+    
     options[order[0]].setAttribute("value", questions[round].correctAnswer)
     options[order[1]].setAttribute("value", questions[round].incorrectAnswer[0])
     options[order[2]].setAttribute("value", questions[round].incorrectAnswer[1])
@@ -126,64 +137,82 @@ function colour4(){
     checkBtn.setAttribute("class", "btn btn-primary btn-lg start")
 };
 
+        startBtn.addEventListener("click", function() {
+            
+            startScrn.setAttribute("class", "container-fluid py-5 hide")
+            questionsBox.setAttribute("class", "container-fluid py-5 start")
+            mapQA() 
+            countdown()
+            round++
+            
+        });
 
 
-startBtn.addEventListener("click", function() {
-    
-    startScrn.setAttribute("class", "container-fluid py-5 hide")
-    questionsBox.setAttribute("class", "container-fluid py-5 start")
-    mapQA() 
-    countdown()
-    round++
-    console.log(round)
-});
 
-
-checkBtn.addEventListener("click", function() {
-    options[0].removeEventListener("click",  colour1, true);
-    options[1].removeEventListener("click",  colour2, true);
-    options[2].removeEventListener("click",  colour3, true);
-    options[3].removeEventListener("click",  colour4, true);
-    if(options[order[0]].getAttribute("class") == "btn btn-secondary btn-lg m-1 col-4"){
-        console.log("correct")
-        box.setAttribute( "class", "p-5 m-4 bg-success-subtle rounded-3")
-        options[order[0]].setAttribute("class", "btn btn-success btn-lg m-1 col-4")
-        questionTitle.textContent = `Correct!`
-        score++
-    }
-    else{
-        box.setAttribute( "class", "p-5 m-4 bg-danger-subtle rounded-3")
-        options[order[0]].setAttribute("class", "btn btn-danger btn-lg m-1 col-4")
-        questionTitle.textContent = `Incorrect!`
-        timeLeft = timeLeft - 10
-    }
-    checkBtn.setAttribute("class", "btn btn-primary btn-lg hide")
-    if(round >= questions.length){
-        resultBtn.setAttribute("class", "btn col-3 btn-primary btn-lg start")
-        nextBtn.setAttribute("class", "btn col-3 btn-primary btn-lg hide")
-    }
-    else{
+    checkBtn.addEventListener("click", function() {
+        options[0].removeEventListener("click",  colour1, true);
+        options[1].removeEventListener("click",  colour2, true);
+        options[2].removeEventListener("click",  colour3, true);
+        options[3].removeEventListener("click",  colour4, true);
+        if(options[order[0]].getAttribute("class") == "btn btn-secondary btn-lg m-1 col-4"){
+            
+            box.setAttribute( "class", "p-5 m-4 bg-success-subtle rounded-3")
+            options[order[0]].setAttribute("class", "btn btn-success btn-lg m-1 col-4")
+            questionTitle.textContent = `Correct!`
+            score++
+        }
+        else{
+            box.setAttribute( "class", "p-5 m-4 bg-danger-subtle rounded-3")
+            options[order[0]].setAttribute("class", "btn btn-danger btn-lg m-1 col-4")
+            questionTitle.textContent = `Incorrect!`
+            timeLeft = timeLeft - 10
+        }
+        checkBtn.setAttribute("class", "btn btn-primary btn-lg hide")
+        if(round >= questions.length){
+            resultBtn.setAttribute("class", "btn col-3 btn-primary btn-lg start")
+            nextBtn.setAttribute("class", "btn col-3 btn-primary btn-lg hide")
+        }
+        else{
+            
         
-    
-        nextBtn.setAttribute("class", "btn col-3 btn-primary btn-lg start")
-    }
-});
+            nextBtn.setAttribute("class", "btn col-3 btn-primary btn-lg start")
+        }
+    });
 
-nextBtn.addEventListener("click", function() {
+    nextBtn.addEventListener("click", function() {
+        
+        if(round < questions.length){  
+            mapQA() 
+            checkBtn.setAttribute("class", "btn btn-primary btn-lg start")
+            nextBtn.setAttribute("class", "btn col-3 btn-primary btn-lg hide")  
+            round++
+            
+        }
+    });
+    resultBtn.addEventListener("click", function(){
+        timeLeft = -1
+        finalScore.textContent = `Your final score is ${score}`
+        endBox.setAttribute("class", "container-fluid py-5 start")
+        questionsBox.setAttribute("class", "container-fluid py-5 hide")
+    });
+
+
+
+scoreInfo = submit.addEventListener("click", function(){
     
-    if(round < questions.length){  
-        mapQA() 
-        checkBtn.setAttribute("class", "btn btn-primary btn-lg start")
-        nextBtn.setAttribute("class", "btn col-3 btn-primary btn-lg hide")  
-        round++
-        console.log(round)
+    if(playerInput === ""){
+        finalScore.textContent = `Enter your initials`
     }
+    let initials = playerInput.value.trim()
+
+        let scoreInfo = {
+            initials: initials,
+            score: score
+        };
+
+        
+        return scoreInfo
     
 });
-resultBtn.addEventListener("click", function(){
-    
-    endBox.setAttribute("class", "container-fluid py-5 start")
-    questionsBox.setAttribute("class", "container-fluid py-5 hide")
-})
 
 
