@@ -1,8 +1,9 @@
-const timer = document.querySelector("#timer")
+const timer = document.querySelector("#time")
 const box = document.querySelector("#box")
 const startBtn = document.querySelector("#start")
 const questionsBox = document.querySelector("#questions")
 const startScrn = document.querySelector("#start-screen")
+const finalScore = document.querySelector("#final-score")
 const checkBtn = document.querySelector("#check")
 const resultBtn = document.querySelector("#results")
 const nextBtn = document.querySelector("#next")
@@ -21,28 +22,30 @@ let correctBtn
 let score = 0
 let selected = false
 let checked = false
+let timeLeft = 60;
 
 function countdown() {
-    let timeLeft = 60;
+    
     // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
     const timeInterval = setInterval(function () {
-    // As long as the `timeLeft` is greater than 1
+    
     if (timeLeft > 1) {
-        // Set the `textContent` of `timerEl` to show the remaining seconds
-        timerEl.textContent = timeLeft + ' seconds remaining';
-        // Decrement `timeLeft` by 1
+        
+        timer.textContent = timeLeft + ' seconds remaining';
+        
         timeLeft--;
     } else if (timeLeft === 1) {
-        // When `timeLeft` is equal to 1, rename to 'second' instead of 'seconds'
-        timerEl.textContent = timeLeft + ' second remaining';
+        
+        timer.textContent = timeLeft + ' second remaining';
         timeLeft--;
     } else {
-        // Once `timeLeft` gets to 0, set `timerEl` to an empty string
-        timerEl.textContent = '';
-        // Use `clearInterval()` to stop the timer
+        
+        timer.textContent = '';
+        
         clearInterval(timeInterval);
-        // Call the `displayMessage()` function
-        displayMessage();
+        
+        endBox.setAttribute("class", "container-fluid py-5 start")
+        questionsBox.setAttribute("class", "container-fluid py-5 hide")
     }
     }, 1000);
 }
@@ -130,6 +133,7 @@ startBtn.addEventListener("click", function() {
     startScrn.setAttribute("class", "container-fluid py-5 hide")
     questionsBox.setAttribute("class", "container-fluid py-5 start")
     mapQA() 
+    countdown()
     round++
     console.log(round)
 });
@@ -151,6 +155,7 @@ checkBtn.addEventListener("click", function() {
         box.setAttribute( "class", "p-5 m-4 bg-danger-subtle rounded-3")
         options[order[0]].setAttribute("class", "btn btn-danger btn-lg m-1 col-4")
         questionTitle.textContent = `Incorrect!`
+        timeLeft = timeLeft - 10
     }
     checkBtn.setAttribute("class", "btn btn-primary btn-lg hide")
     if(round >= questions.length){
