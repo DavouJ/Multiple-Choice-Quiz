@@ -1,3 +1,4 @@
+const box = document.querySelector("#box")
 const startBtn = document.querySelector("#start")
 const questionsBox = document.querySelector("#questions")
 const startScrn = document.querySelector("#start-screen")
@@ -14,12 +15,9 @@ option4 = document.querySelector("#option4")
 ]
 
 let round = 0
-
+var order = [0,1,2,3]
 let correctBtn
 
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max)
-}
 function shuffle(array) {
     let currentIndex = array.length,  randomIndex;
     // While there remain elements to shuffle.
@@ -35,17 +33,13 @@ function shuffle(array) {
     return array;
 }
 
-startBtn.addEventListener("click", function() {
-    
-    startScrn.setAttribute("class", "container-fluid py-5 hide")
-    questionsBox.setAttribute("class", "container-fluid py-5 start")
-    mapQA() 
-    round++
-    console.log(round)
-});
-
 function mapQA(){
-    var order = [0,1,2,3]
+    box.setAttribute("class", "p-5 m-4 bg-body-secondary rounded-3")
+    options[0].setAttribute("class", "btn btn-primary btn-lg m-1 col-4")
+    options[1].setAttribute("class", "btn btn-primary btn-lg m-1 col-4")
+    options[2].setAttribute("class", "btn btn-primary btn-lg m-1 col-4")
+    options[3].setAttribute("class", "btn btn-primary btn-lg m-1 col-4")
+
     shuffle(order)
 
     questionTitle.textContent = `Question ${round + 1}: ` + questions[round].question
@@ -56,14 +50,44 @@ function mapQA(){
     options[order[3]].setAttribute("value", questions[round].incorrectAnswer[2])
 }
 
-function checkAns()
-{
 
+startBtn.addEventListener("click", function() {
+    
+    startScrn.setAttribute("class", "container-fluid py-5 hide")
+    questionsBox.setAttribute("class", "container-fluid py-5 start")
+    mapQA() 
+    round++
+    console.log(round)
+});
+
+for(let i=0; i<4;i++){
+    options[i].addEventListener("click", function() {
+        options[0].setAttribute("class", "btn btn-primary btn-lg m-1 col-4")
+        options[1].setAttribute("class", "btn btn-primary btn-lg m-1 col-4")
+        options[2].setAttribute("class", "btn btn-primary btn-lg m-1 col-4")
+        options[3].setAttribute("class", "btn btn-primary btn-lg m-1 col-4")
+        
+        options[i].setAttribute("class", "btn btn-secondary btn-lg m-1 col-4")
+        
+        checkBtn.setAttribute("class", "btn btn-primary btn-lg start")
+    });
 }
 
+
 checkBtn.addEventListener("click", function() {
+    if(options[order[0]].getAttribute("class") == "btn btn-secondary btn-lg m-1 col-4"){
+        console.log("correct")
+        //box.setAttribute("style", "color: green;")
+        options[order[0]].setAttribute("class", "btn btn-success btn-lg m-1 col-4")
+        questionTitle.textContent = `Correct!`
+    }
+    else{
+        box.setAttribute( "class", "p-5 m-4 bg-danger-subtle rounded-3")
+        options[order[0]].setAttribute("class", "btn btn-danger btn-lg m-1 col-4")
+        questionTitle.textContent = `Incorrect!`
+    }
     checkBtn.setAttribute("class", "btn btn-primary btn-lg hide")
-    checkAns()
+    
     nextBtn.setAttribute("class", "btn col-3 btn-primary btn-lg start")
 });
 
