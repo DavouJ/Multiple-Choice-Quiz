@@ -31,17 +31,34 @@
 <div class="p-5 m-4 bg-body-tertiary rounded-3">
     <div id="start-screen" class="container-fluid py-5 start">
     <h1 class="display-5 fw-bold">Coding Quiz Challenge</h1>
-    <p class=" fs-4">Try to answer the following code-related questions within the time
+    <p class="fs-4">Try to answer the following code-related questions within the time
         limit. Keep in mind that incorrect answers will penalize your
         score/time by ten seconds!</p>
     <button id="start" class="btn btn-primary btn-lg" type="button">Start Quiz</button>
     </div>
 
-    <div id="questions" class="container-fluid py-5 hide">
+    <div id="questions" class="container py-5 hide">
         <h2 id="question-title" class="display-5 fw-bold"></h2>
-        <div id="choices" class="choices"></div>
+        <div id="choices" class="choices">
+            <div class="row justify-content-center">
+                <input id="option1" class="btn btn-primary btn-lg m-1 col-4" type="submit" value="">
+                <input id="option2" class="btn btn-primary btn-lg m-1 col-4" type="submit" value="">
+            </div>
+            <div class="row justify-content-center">
+                <input id="option3" class="btn btn-primary btn-lg m-1 col-4" type="submit" value="">
+                <input id="option4" class="btn btn-primary btn-lg m-1 col-4" type="submit" value="">
+            </div>
+            <div class="row justify-content-center">
+
+            </div>
+        </div>
+        
         <button id="check" class="btn btn-primary btn-lg" type="button">Check</button>
-        <button id="check" class="btn btn-primary btn-lg hide" type="button">See results</button>
+        <div class="row justify-content-center">
+            <button id="next" class="btn col-3 btn-primary btn-lg hide" type="button">Next Question</button>
+            <button id="results" class="btn col-3 btn-primary btn-lg hide" type="button">See results</button>
+        </div>
+        
     </div>
 
     <div id="end-screen" class="container-fluid py-5 hide">
