@@ -62,9 +62,9 @@ SOFTWARE.
 
 ## Badges CHANGE
 
-![badmath](https://img.shields.io/badge/HTML-84.6-blue)
-![badmath](https://img.shields.io/badge/CSS-15.4-orange)
-![badmath](https://img.shields.io/badge/JS-15.4-purple)
+![badmath](https://img.shields.io/badge/HTML-34.6-blue)
+![badmath](https://img.shields.io/badge/CSS-6.6-orange)
+![badmath](https://img.shields.io/badge/JS-58.8-purple)
 
 
 ## How to Contribute
